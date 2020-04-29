@@ -1,16 +1,23 @@
 const express = require('express');
-var app = express();
+const app = express();
+const mongoose = require('mongoose');
+require('dotenv/config');
 
-//Middleware
-app.use('/posts', (req, res) => {
-    console.log("Middleware running");
-    res.send("Success");
-})
 
-//Routes
-app.get("/", (req, res) => {
-    res.send("Response from the server will be displayed in the browser");
-})
+//Routes in routes folder
+//Import Routes
+const postRoute = require('./routes/posts')
+
+//Middleware to run the post routes
+app.use('/posts', postRoute);
+
+
+//Connect to DB
+mongoose.connect(
+    process.env.DB_CONNECTION,
+    { useNewUrlParser: true }, () => {
+        console.log("Connected to DB");
+    })
 
 
 //Listen to the server
