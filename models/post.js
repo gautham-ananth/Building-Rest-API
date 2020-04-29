@@ -17,4 +17,4 @@ var postSchema = mongoose.Schema({
 })
 
 //this maps the schemaname to the collection in mlab
-module.exports('Posts', postSchema);
+module.exports = mongoose.model('Posts', postSchema);
