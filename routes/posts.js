@@ -7,7 +7,25 @@ router.get("/", (req, res) => {
 })
 
 router.post("/", (req, res) => {
-    console.log(req.body);//install body parser to pare the req body
+    // console.log(req.body);//install body parser to pare the req body
+    const post = new Post({
+        title: req.body.title,
+        description: req.body.description
+    });
+    console.log("post :", JSON.stringify(post));
+
+    //store in database
+    post.save()
+        .then(
+            data => {
+                console.log("Success! Post done");
+                res.json(data);
+            })
+        .catch(error => {
+            console.log("Error:500")
+            res.json({ message: error })
+        })
+
 })
 
 module.exports = router;
