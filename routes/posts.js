@@ -2,11 +2,20 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/post');
 
-router.get("/", (req, res) => {
-    res.send("Response from the server will be displayed in the browser");
+
+//get back all posts
+router.get("/", async (req, res) => {
+    try {
+        const allPosts = await Post.find();
+        res.json(allPosts);
+    }
+    catch (err) {
+        res.json({ message: err })
+    }
 })
 
-router.post("/", (req, res) => {
+//submit a post
+router.post("/", async (req, res) => {
     // console.log(req.body);//install body parser to pare the req body
     const post = new Post({
         title: req.body.title,
@@ -15,17 +24,51 @@ router.post("/", (req, res) => {
     console.log("post :", JSON.stringify(post));
 
     //store in database
-    post.save()
-        .then(
-            data => {
-                console.log("Success! Post done");
-                res.json(data);
-            })
-        .catch(error => {
-            console.log("Error:500")
-            res.json({ message: error })
-        })
+    try {
+        const savedPost = await post.save();
+        res.json(savedPost)
+    }
+    catch (err) {
+        res.json({ message: err })
+    }
+
 
 })
 
+//get back specific post
+router.get("/:postId", async (req, res) => {
+    // console.log("Params : ", req.params.postId);
+    try {
+        const singlePost = await Post.findById(req.params.postId);
+        res.json(singlePost);
+    }
+    catch (err) {
+        res.json({ message: err })
+    }
+})
+
+//delete a single post
+router.delete("/:postId", async (req, res) => {
+    try {
+        const removedPost = await Post.remove({ _id: req.params.postId });
+        res.json(removedPost);
+    }
+    catch (err) {
+        res.json({ message: err })
+    }
+})
+
+//update a post
+router.patch("/:postId", async (req, res) => {
+    try {
+        const removedPost = await Post.updateOne(
+            { _id: req.params.postId },
+            { $set: { title: req.body.title } }
+        );
+        res.json(removedPost);
+    }
+    catch (err) {
+        res.json({ message: err })
+    }
+})
 module.exports = router;

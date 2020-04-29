@@ -3,7 +3,8 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 require('dotenv/config');
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+const cors = require('cors');
 
 //Routes in routes folder
 //Import Routes
