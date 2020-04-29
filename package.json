@@ -1,0 +1,23 @@
+{
+  "name": "building-rest-api-master",
+  "version": "1.0.0",
+  "description": "Build A Restful Api With Node.js Express &amp; MongoDB refernce-rights : https://www.youtube.com/watch?v=vjf774RKrLc",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gautham-ananth/Building-Rest-API.git"
+  },
+  "author": "gautham anantharaj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gautham-ananth/Building-Rest-API/issues"
+  },
+  "homepage": "https://github.com/gautham-ananth/Building-Rest-API#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.3"
+  }
+}
